@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: crewflow-frontend
+    env: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm run start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://crewflow-backend.onrender.com
+    routes:
+      - path: /
+        destination: /
+
+  - type: web
+    name: crewflow-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromService:
+          name: crewflow-db
+          property: connectionString
+      - key: FRONTEND_URL
+        value: https://crewflow-frontend.onrender.com
+      - key: PORT
+        value: 5000
+
+  - type: pserv
+    name: crewflow-db
+    env: docker
+    plan: free
+    image: mongo:7
+    envVars:
+      - key: MONGO_INITDB_ROOT_USERNAME
+        value: admin
+      - key: MONGO_INITDB_ROOT_PASSWORD
+        generateValue: true
