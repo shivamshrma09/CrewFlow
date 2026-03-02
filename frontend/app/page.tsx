@@ -171,6 +171,15 @@ function page() {
           className='rounded-lg relative z-10 w-full max-w-5xl object-cover' 
         />
       </div>
+
+      <div className='w-full flex justify-center mb-12'>
+        <button 
+          onClick={() => router.push('/home')}
+          className='px-8 py-3 bg-[#3537db] hover:bg-[#2a2cc0] text-white font-semibold rounded-lg transition-colors'
+        >
+          Try Home Page →
+        </button>
+      </div>
         
       <div className='w-full flex flex-col items-center justify-center mt-20 sm:mb-[-40]'>
         <h2 className='text-5xl font-bold text-white text-center '>Fetures</h2>
